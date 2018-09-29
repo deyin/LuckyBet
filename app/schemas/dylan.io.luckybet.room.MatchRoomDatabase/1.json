@@ -1,0 +1,259 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e9a52fbb33f7d830448850735a9b1ed3",
+    "entities": [
+      {
+        "tableName": "t_match",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `sequence` INTEGER NOT NULL, `time` TEXT, `league` TEXT, `home` TEXT, `away` TEXT, `oddsList` TEXT, `handicapList` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sequence",
+            "columnName": "sequence",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "league",
+            "columnName": "league",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "home",
+            "columnName": "home",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "away",
+            "columnName": "away",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsList",
+            "columnName": "oddsList",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapList",
+            "columnName": "handicapList",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "t_odds",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchId` TEXT NOT NULL, `companyId` TEXT NOT NULL, `companyName` TEXT, `current` TEXT, `start` TEXT, `kellyIndexOfWin` REAL NOT NULL, `kellyIndexOfDraw` REAL NOT NULL, `kellyIndexOfLose` REAL NOT NULL, `oddsChanges` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "companyId",
+            "columnName": "companyId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "companyName",
+            "columnName": "companyName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "current",
+            "columnName": "current",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "start",
+            "columnName": "start",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kellyIndexOfWin",
+            "columnName": "kellyIndexOfWin",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kellyIndexOfDraw",
+            "columnName": "kellyIndexOfDraw",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kellyIndexOfLose",
+            "columnName": "kellyIndexOfLose",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oddsChanges",
+            "columnName": "oddsChanges",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_t_odds_matchId",
+            "unique": false,
+            "columnNames": [
+              "matchId"
+            ],
+            "createSql": "CREATE  INDEX `index_t_odds_matchId` ON `${TABLE_NAME}` (`matchId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "t_match",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "matchId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "t_handicap",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `matchId` TEXT, `companyId` TEXT, `companyName` TEXT, `current` TEXT, `start` TEXT, `kellyIndexOfHome` REAL NOT NULL, `kellyIndexOfAway` REAL NOT NULL, `handicapChanges` TEXT, FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "companyId",
+            "columnName": "companyId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "companyName",
+            "columnName": "companyName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "current",
+            "columnName": "current",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "start",
+            "columnName": "start",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "kellyIndexOfHome",
+            "columnName": "kellyIndexOfHome",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kellyIndexOfAway",
+            "columnName": "kellyIndexOfAway",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "handicapChanges",
+            "columnName": "handicapChanges",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_t_handicap_matchId",
+            "unique": false,
+            "columnNames": [
+              "matchId"
+            ],
+            "createSql": "CREATE  INDEX `index_t_handicap_matchId` ON `${TABLE_NAME}` (`matchId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "t_match",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "matchId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e9a52fbb33f7d830448850735a9b1ed3\")"
+    ]
+  }
+}

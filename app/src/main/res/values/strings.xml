@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LuckyBet</string>
+    <string name="strAutoSelectByOdds">根据欧赔选择</string>
+    <string name="strAutoSelectByHandicap">根据亚盘选择</string>
+</resources>
